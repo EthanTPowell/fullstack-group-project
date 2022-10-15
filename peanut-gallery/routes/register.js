@@ -6,10 +6,9 @@ router.use(function timelog(req, res, next) {
     next();
 });
 
-router.get('/', (req, res, next) => {
-    res.render('../views/index.ejs')
-    // res.send('hit')
-});
+router.get('/register', (req, res, next) => {
+    res.render('../views/register.ejs')
+})
 
 
 
