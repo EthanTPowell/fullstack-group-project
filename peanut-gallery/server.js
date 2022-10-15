@@ -17,6 +17,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(require('./routes/index'));
+app.use(require('./routes/register.js'));
+app.use(require('./routes/comments'));
 
 
 app.listen(port, () => {
