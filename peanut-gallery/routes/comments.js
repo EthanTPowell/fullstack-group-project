@@ -16,22 +16,22 @@ router.get('/comments', async(req, res, next) => {
 
 router.post('/comments', async(req, res, next) => {
     // try {
-        const { username, commentBody } = req.body;
+        const { userID, commentBody } = req.body;
 
-    if (username && commentBody) {
-        console.log(username, commentBody);
+    if (userID && commentBody) {
+        console.log(userID, commentBody);
         try {
-            // await db.Comment.create({
-            //     username: username,
-            //     commentBody: commentBody
-            // })
+            await db.Comment.create({
+                userID: userID,
+                commentBody: commentBody
+            })
             const records = await db.Comment.findAll()
             res.send(records)
         } catch (error) {
             console.log(error);
         }
     } else {
-        console.log('missing username or comment body');
+        console.log('missing userID or comment body');
         }
     // }
     // catch(error) {

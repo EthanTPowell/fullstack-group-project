@@ -7,8 +7,10 @@ router.use(function timelog(req, res, next) {
     next();
 });
 
-router.get('/login', (req, res, next) => {
+router.get('/login', async (req, res, next) => {
     return res.render('login')
+    // const records = await db.Comment.findAll({include: [{model: db.User}]})
+    // console.log(records);
 })
 
 router.post('/login', async (req, res, next) => {
@@ -16,10 +18,11 @@ router.post('/login', async (req, res, next) => {
     const { username, password } = req.body;
     console.log(username);
     try {
-        const records = await db.User.findAll({ include: [{
+        const records = await db.User.findAll({
+            where: {username:username},include: [{
             model: db.Comment
         }] });
-        console.log(records);
+        console.log(records[0].dataValues);
         if (records !== null) {
             if (password === records[0].dataValues.password) {
                 return res.send('issamatch')

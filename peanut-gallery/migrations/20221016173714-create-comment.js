@@ -9,19 +9,19 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
+      userID: {
         allowNull: false,
-        type: Sequelize.STRING(23),
+        type: Sequelize.INTEGER,
         onDelete: 'CASCADE',
         references: {
           model: 'Users',
-          key: 'username',
-          as: 'username'
+          key: 'id',
+          as: 'userID'
   }
       },
       commentBody: {
         allowNull: false,
-        type: Sequelize.STRING(140)
+        type: Sequelize.STRING(200)
       },
       createdAt: {
         allowNull: false,

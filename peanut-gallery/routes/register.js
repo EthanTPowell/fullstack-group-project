@@ -28,7 +28,12 @@ router.post('/register', async(req, res, next) => {
             return res.redirect('login')
         } else {
             console.log('username taken');
-            return res.render('register')
+            return res.status(422).send({
+                error: {
+                    status: 422,
+                    message: 'Username already taken'
+                }
+            })
         }
 
     } catch (error) {

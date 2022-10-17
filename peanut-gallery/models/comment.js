@@ -12,13 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Comment.belongsTo(models.User, {
-        foreignKey: 'username',
+        foreignKey: 'userID',
         onDelete: 'CASCADE'
     });
     }
   }
   Comment.init({
-    username: DataTypes.STRING,
+    userID: DataTypes.INTEGER,
     commentBody: DataTypes.STRING
   }, {
     sequelize,
