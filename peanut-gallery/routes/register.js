@@ -1,13 +1,41 @@
 const express = require('express');
 const router = express.Router();
 
+const db = require('../helpers/dbConnection');
+
 router.use(function timelog(req, res, next) {
-    console.log(`Time: `, Date.now(), 'index.js router');
+    console.log(`Time: `, Date.now(), 'register.js router');
     next();
 });
 
 router.get('/register', (req, res, next) => {
-    res.render('../views/register.ejs')
+    return res.render('./register.js')
+});
+
+router.post('/register', async(req, res, next) => {
+    
+    try {
+        const { username, password } = req.body;
+
+        const records = await db.User.findAll({ where: { username: username } });
+        console.log(records);
+
+        if (records.length === 0) {
+            db.User.create({
+                username: username,
+                password: password
+            })
+            return res.redirect('login')
+        } else {
+            console.log('username taken');
+            return res.render('register')
+        }
+
+    } catch (error) {
+        console.log(error);
+        res.render('register')
+    }
+
 })
 
 

@@ -7,7 +7,7 @@ router.use(function timelog(req, res, next) {
 });
 
 router.get('/', (req, res, next) => {
-    res.render('../views/index.ejs')
+    res.render('index')
     // res.send('hit')
 });
 
