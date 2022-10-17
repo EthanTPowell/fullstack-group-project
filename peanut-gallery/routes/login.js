@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../helpers/dbConnection')
+const db = require('../helpers/dbConnection');
+const bcrypt = require('bcrypt');
 
 router.use(function timelog(req, res, next) {
     console.log(`Time: `, Date.now(), 'login.js router');
@@ -24,12 +25,31 @@ router.post('/login', async (req, res, next) => {
         }] });
         console.log(records[0].dataValues);
         if (records !== null) {
-            if (password === records[0].dataValues.password) {
-                return res.send('issamatch')
-            } else {
-                console.log('password does not match');
-                return res.render('login')
+
+            try {
+                const isMatch = await bcrypt.compare(password, records[0].password)
+                if (isMatch) {
+                    req.session.user = username
+                    // return res.send("hash matches")
+                } else if (!isMatch) {
+                    console.log('hash does not match');
+                    return res.redirect('login')
+                } else {
+                    console.log('username does not match any registered users');
+                    return res.redirect('register')
+                }
+            } catch(error) {
+                console.log(`last catch error on /login: ${error}`);
+                return res.redirect('login')
             }
+
+            // if (password === records[0].dataValues.password) {
+            //     return res.send('issamatch')
+
+            // } else {
+            //     console.log('password does not match');
+            //     return res.render('login')
+            // }
         }
     } catch (error) {
         console.log(error);
@@ -39,5 +59,11 @@ router.post('/login', async (req, res, next) => {
 
 
 });
+
+router.get('/logout', (req, res, next) => {
+    req.session.destroy();
+    if(!req.session){console.log('user logged out');}
+    return res.redirect('login');
+})
 
 module.exports=router

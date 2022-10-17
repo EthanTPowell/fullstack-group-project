@@ -1,4 +1,5 @@
 const express = require('express');
+const { EmptyResultError } = require('sequelize');
 const router = express.Router();
 
 const db = require('../helpers/dbConnection')
@@ -8,8 +9,21 @@ router.use(function timelog(req, res, next) {
     next();
 });
 
-router.get('/comments', async(req, res, next) => {
-    res.render("comments")
+function requireAuth(req, res, next) {
+    if (req.session.user) next();
+    else if (!erq.session.user) {
+        req.session.destroy();
+        console.log('You are not logged in');
+        res.render('login')
+    } else {
+        req.session.destroy();
+        console.log('You are not logged in');
+        return res.redirect('login')
+    }
+}
+
+router.get('/comments', requireAuth, async(req, res, next) => {
+
     // const records = await db.Comment.findAll()
     // console.log(records);
 })

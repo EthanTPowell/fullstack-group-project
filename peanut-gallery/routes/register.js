@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const db = require('../helpers/dbConnection');
 
@@ -21,19 +22,31 @@ router.post('/register', async(req, res, next) => {
         console.log(records);
 
         if (records.length === 0) {
-            db.User.create({
-                username: username,
-                password: password
-            })
-            return res.redirect('login')
+
+            bcrypt.hash(password, 10, async (error, hash) => {
+                if (error) {
+                    console.log(`error with the hash: ${error}`);
+                    return res.redirect('register')
+                } else {
+                    const newUser = await db.User.create({
+                        username: username,
+                        password: hash
+                    });
+                    console.log(newUser);
+                    return res.redirect('login')
+            }
+        })
+
+
         } else {
             console.log('username taken');
-            return res.status(422).send({
-                error: {
-                    status: 422,
-                    message: 'Username already taken'
-                }
-            })
+            return res.status(422).render('register'
+                // error: {
+                //     status: 422,
+                //     message: 'Username already taken'
+                // }
+                // `<h2>Username already taken:${error}</h2>`
+            )
         }
 
     } catch (error) {
