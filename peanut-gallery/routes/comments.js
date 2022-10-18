@@ -11,7 +11,7 @@ router.use(function timelog(req, res, next) {
 
 function requireAuth(req, res, next) {
     if (req.session.user) next();
-    else if (!erq.session.user) {
+    else if (!req.session.user) {
         req.session.destroy();
         console.log('You are not logged in');
         res.render('login')
@@ -24,8 +24,9 @@ function requireAuth(req, res, next) {
 
 router.get('/comments', requireAuth, async(req, res, next) => {
 
-    // const records = await db.Comment.findAll()
-    // console.log(records);
+    const records = await db.Comment.findAll()
+
+    console.log(JSON.stringify(records, null, 2));
 })
 
 router.post('/comments', async(req, res, next) => {
