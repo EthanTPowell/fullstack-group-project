@@ -20,9 +20,7 @@ router.post('/login', async (req, res, next) => {
     console.log(username);
     try {
         const records = await db.User.findAll({
-            where: {username:username},include: [{
-            model: db.Comment
-        }] });
+            where: {username:username} });
         console.log(records[0].dataValues);
         if (records !== null) {
 
