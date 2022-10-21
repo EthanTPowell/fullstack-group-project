@@ -10,7 +10,10 @@ router.use(function timelog(req, res, next) {
 });
 
 router.get('/register', (req, res, next) => {
-    return res.render('./register.js')
+    return res.render('register', {
+        purpose:"Register",
+        action: "Create a"
+    })
 });
 
 router.post('/register', async(req, res, next) => {

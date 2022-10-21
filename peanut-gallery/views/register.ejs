@@ -1,11 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-<%- include('./partials/head.ejs') %> 
-    <title>Register</title>
-</head>
-<body>
-    <%- include('./partials/nav.ejs') %> 
-<h1>Register here</h1>
-</body>
+  <head>
+    <%- include('./partials/head.ejs') %>
+    <title><%= purpose  %> </title>
+  </head>
+  <body>
+    <!-- <%- include('./partials/nav.ejs') %> -->
+
+    <form action="/<%= purpose %> " method="POST">
+      <h1><%= purpose %>  here</h1>
+      <div class="input-field">
+        <input
+          type="text"
+          name="username"
+          id="username"
+          placeholder="<%= action %>  username"
+          title="letters or numbers (no special characters) between 4 and 23 characters"
+          pattern="^^[a-zA-Z0-9_.-]{4,23}$"
+        />
+      </div>
+      <div class="input-field">
+        <input
+          type="password"
+          name="password"
+          id="password"
+          placeholder="<%= action %>  password"
+          title="letters or numbers between 4 and 23 characters"
+          pattern="^[a-zA-Z0-9_.-]{4,23}$"
+        />
+      </div>
+      <br />
+      <button class="btn btn-primary" type="submit"><%= purpose %> </button>
+    </form>
+
+    <!-- <div class="background-image"></div> -->
+
+    <!-- <img src="https://i1.sndcdn.com/avatars-000311781769-4y64xh-t500x500.jpg" alt="Girl in a jacket" width="500" height="600"> -->
+  </body>
+
 </html>

@@ -34,6 +34,9 @@ app.use(express.urlencoded({ extended: true }));
 //scrape email and password form request header using Postman api
 app.use(express.json());
 
+//setup public folder
+app.use(express.static('./public'));
+
 app.use(require('./routes/index'));
 app.use(require('./routes/register.js'));
 app.use(require('./routes/comments'));
