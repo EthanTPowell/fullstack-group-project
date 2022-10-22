@@ -19,6 +19,10 @@ module.exports = {
           as: 'userID'
   }
       },
+      category: {
+        allowNull: false,
+        type: Sequelize.STRING(50)
+      },
       commentBody: {
         allowNull: false,
         type: Sequelize.STRING(200)

@@ -42,12 +42,14 @@ app.use(require('./routes/register.js'));
 app.use(require('./routes/comments'));
 app.use(require('./routes/login'));
 app.get('*', (req, res, next) => {
+    console.log("get catch all hit");
     req.session.destroy();
     if (!req.session) { console.log('user logged out'); }
     return res.redirect('/');
 });
 app.post('*', (req, res, next) => {
     req.session.destroy();
+    console.log("post catch all hit");
     if (!req.session) { console.log('user logged out'); }
     return res.redirect('/');
 })
