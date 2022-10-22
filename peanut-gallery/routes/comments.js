@@ -78,7 +78,8 @@ router.get('/comments/:category', requireAuth, async (req, res, next) => {
     });
     // console.log(records[0].dataValues.User);
     // res.send(records);
-    if (records) {
+    if (records.length>=1) {
+        console.log(`Records are: ${JSON.stringify(records, null, 2)}`);
         res.render('comments', {
             records: records,
             userID: req.session.userID
