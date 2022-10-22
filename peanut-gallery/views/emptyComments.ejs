@@ -7,24 +7,27 @@
 <body class="text-bg-secondary">
     <%- include('./partials/nav.ejs') %> 
     <div style="display: flex; flex-direction: column; align-items:center; margin: 3px;">
-<h1 >Comments from the Peanut Gallery</h1>
+<h1 > There are no comments in this category. Why don't you make one?</h1>
 <% console.log(userID) %> 
 <!-- Button trigger modal -->
+<!-- <h1 style="display: flex; justify-content: center;">There are no comments in this category. Why don't you make one?</h1> -->
+
 <button type="button" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#commentModal">
     Make a comment
   </button>
 </div>
   <!-- Modal -->
-  <div class="modal fade " id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
+  <div class="modal fade" id="commentModal" tabindex="-1" aria-labelledby="commentModalLabel" aria-hidden="true">
     <div class="modal-dialog">
-      <div class="modal-content text-bg-secondary">
-        <div class="modal-header" style="margin: 0px;">
-          <h1 class="modal-title text-bg-secondary fs-5" id="commentModalLabel">Got a comment from the peanut gallery?</h1>
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="commentModalLabel">Got a comment from the peanut gallery?</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body" style="margin: 0px;">
+        <div class="modal-body">
           <form action="/comments" method="post">
               <label for="categories">Choose a category:</label>
+
 <select name="category" id="category">
   <option value="general">General</option>
   <option value="videoGames">Video Games</option>
@@ -39,7 +42,7 @@
             title="Make a comment between 4 and 200 characters" 
             pattern="^.{4,200}$">
         </div>
-        <div class="modal-footer" style="margin: 0px;">
+        <div class="modal-footer">
           <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Close</button>
           <button type="submit" class="btn btn-success" target>Submit comment</button>
         </div>
@@ -49,17 +52,6 @@
     </div>
   </div>
 
-<div class="card-group" style=" align-items: center; flex-direction: column; flex-wrap: wrap;" >
-<% records.forEach((e,i)=>{%>
-    <div class="card  text-bg-success" style=" margin: 5px; width: 100%;">
-        <div class="card-body  " >
-            <h5 class="card-title"><%= e.dataValues.User.username %> </h5>
-            <p class="card-text"><%= e.dataValues.commentBody %> </p>
-        </div>
-      </div>
-<%})%>
-
-</div>
 
 <%- include('./partials/bootstrap.ejs')%>
 </body>
